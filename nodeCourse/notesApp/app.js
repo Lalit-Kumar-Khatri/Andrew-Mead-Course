@@ -1,17 +1,10 @@
+const validator = require('validator');
+
 const getNotes = require('./notes');
 
 const myNotes = getNotes();
-
 console.log(myNotes);
 
-// Challenge: Define and use a function in a new file
+console.log(validator.isEmail('example.com'));
 
-// 1. Create a new file called notes.js
-// 2. Create getNotes function that returns "Your notes..."
-// 3. Export getNotes function
-// 4. From app.js, load and call the function printing message to console
-
-
-// const add = require('./utils.js');
-// const sum = add(4, -2);
-// console.log(sum);
+console.log(validator.isURL('https/mead.io'));
