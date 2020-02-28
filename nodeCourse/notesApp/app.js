@@ -1,15 +1,9 @@
 const chalk = require('chalk');
 const yargs = require('yargs');
-const getNotes = require('./notes');
+const notes = require('./notes');
 
 // Customize yargs version
 yargs.version('1.1.0');
-
-// Challenge:
-// 1. Setup a body option for the add command
-// 2. Configure a description, make it required, and for it to be a string
-// 3. Log the body value in the handler function
-// 4. Test your work
 
 // Create add command
 yargs.command({
@@ -28,8 +22,7 @@ yargs.command({
         }
     },
     handler: function (argv) {
-        console.log('Title: ' + argv.title)
-        console.log('Body: ' + argv.body)
+        notes.addNote(argv.title, argv.body)
     }
 })
 
