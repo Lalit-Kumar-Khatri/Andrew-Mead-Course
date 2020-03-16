@@ -20,13 +20,3 @@ if (!address) {
       })
     })  
 }
-
-// 
-// Goal: Accept location via command line argument
-// 
-// 1. Access the command line without yargs
-// 2. Use the string value as the input for geocode
-// 3. Only geocode if the location was provided
-// 4. Test your work with couple locations
-// 
-
