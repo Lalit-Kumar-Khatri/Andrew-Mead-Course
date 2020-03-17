@@ -1,30 +1,25 @@
+const path = require('path');
 const express = require('express');
 
+
 const app = express();
+const publicDirectoryPath = path.join(__dirname, '../public');
+
+app.use(express.static(publicDirectoryPath));
+
+// 
+// Goal: Create two more html files
+// 
+// 1. Create a html page for about with "About" title
+// 2. Create a html page for help with "Help" title
+// 3. Remove the old route handlers for both
+// 4. Visit both in the browser to test your workk
+// 
 
 app.get('', (req, res) => {
     res.send('<h1>Weather</h1>')
 })
 
-app.get('/help', (req, res) => {
-    res.send([{
-        name: 'Andrew'
-    }, {
-        name: 'Sarah'
-    }]);
-})
-
-// 
-// Goal: Update routes
-// 
-// 1. Setup about route to render a title with HTML
-// 2. Setup weather route to send bac JSON
-//  - Object with forecast and location strings
-// 3. Test your work by visiting both in the browser
-
-app.get('/about', (req, res) => {
-    res.send('<h1>About</h1>');
-})
 
 app.get('/weather', (req, res) => {
     res.send({
