@@ -1,6 +1,8 @@
 const path = require('path');
 const express = require('express');
 const hbs = require('hbs');
+const geocode = require('./utils/geocode');
+const forecast = require('./utils/forecast');
 
 const app = express();
 
@@ -48,20 +50,32 @@ app.get('/weather', (req, res) => {
         })
     }
 
-    res.send({
-        forecast: 'It is snowing',
-        location: 'Philadelphia',
-        address: req.query.address
-    });
+    geocode(req.query.address, (error, { latitude, longitude, location }) => {
+        if (error) {
+            return res.send({ error })
+        }
+
+        forecast(latitude, longitude, (error, forecastData) => {
+            if (error) {
+                return res.send({ error })
+            }
+
+            res.send({
+                forecast: forecastData,
+                location,
+                address: req.query.address
+            })
+        })
+    })
 })
 
 // 
-// Goal: Update weather endpoint to accept address
+// Goal: Wire up /weather
 // 
-// 1. No address? Send back an error message
-// 2. Address? Send back the static JSON
-//  - Add address property onto JSON which returns the provided address
-// 3. Test /weather and /weather?address=philadelphia 
+// 1. Require geocode/forecast into app.js
+// 2. Use the address to geocode
+// 3. Use the coordinates to get the forecast
+// 4. Send back the real forecast and location 
 
 app.get('/products', (req, res) => {
     if (!req.query.search) {
@@ -90,16 +104,6 @@ app.get('*', (req, res) => {
         errorMessage: 'Page not found.' 
     })
 })
-
-// 
-// Goal: Create and render a 404 page with handlebars
-// 
-// 1. Setup the template to render the header and footer
-// 2. Sertup the template to render an error message in a paragraph
-// 3. Render the template for both 404 routes
-//  - Page not found
-//  - Help article not found.
-// 4. Test your work. Visit/what and/help/units
 
 
 app.listen(3000, () => {
