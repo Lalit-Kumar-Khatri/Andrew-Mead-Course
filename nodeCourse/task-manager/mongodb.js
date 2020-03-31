@@ -14,34 +14,35 @@ MongoClient.connect(connectioinURL, { useNewUrlParser: true }, (error, client) =
 
     const db = client.db(databaseName);
 
-    // db.collection('users').findOne({ _id: new ObjectID("5e82e6227514843cadbcf8b9") }, (error, user) => {
-    //     if (error) {
-    //         return console.log('Unable to fetch');
+    // db.collection('users').updateOne({
+    //     _id: new ObjectID("5e82d2d9749efe2da801f3b6")
+    // }, {
+    //     $inc: {
+    //         age: 1
     //     }
-
-    //     console.log(user);
-    // })
-
-    // db.collection('users').find({ age: 27 }).toArray((error, users) => {
-    //     console.log(users);
-    // })
-
-    // db.collection('users').find({ age: 27 }).count((error, count) => {
-    //     console.log(count);
+    // }).then((result ) => {
+    //     console.log(result);
+    // }).catch((error) => {
+    //     console.log(error);
     // })
 
     // 
-    // Goal: Use find and findOne with tasks
+    // Goal: Use updateMany to complete all tasks
     // 
-    // 1. Use findOne to fetch the last task by its id (print doc to the console)
-    // 2. Use find to fetch all the tasks that are not completed (print docs to the console)
-    // 3. Test your work!
-    
-    db.collection('tasks').findOne({ _id: new ObjectID("5e82dd37ae2d773658298693") }, (error, task) => {
-        console.log(task);
-    })
+    // 1. Check the documentation for updateMany
+    // 2. Setup the call with the query and the updatees
+    // 3. Use promise methods to set up the success/error handlers
+    // 4. Test your work.
 
-    db.collection('tasks').find({ completed: false }).toArray((error, tasks) => {
-        console.log(tasks);
+    db.collection('tasks').updateMany({
+        completed: false
+    }, {
+        $set: {
+            completed: true
+        }
+    }).then((result) => {
+        console.log(result.modifiedCount);
+    }).catch((error) => {
+        console.log(error);
     })
 })
