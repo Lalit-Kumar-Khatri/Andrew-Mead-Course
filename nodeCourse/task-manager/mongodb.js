@@ -13,8 +13,66 @@ MongoClient.connect(connectioinURL, { useNewUrlParser: true }, (error, client) =
 
     const db = client.db(databaseName);
 
-    db.collection('users').insertOne({
-        name: 'Andrew',
-        age: 27
+    // db.collection('users').insertOne({
+    //     name: 'Andrew',
+    //     age: 27
+    // }, (error, result) => {
+    //     if (error) {
+    //         return console.log('Unable to insert user')
+    //     }
+
+    //     console.log(result.ops)
+    // })
+
+//     db.collection('users').insertMany([
+//         {
+//             name: 'Jen',
+//             age: 28
+//         }, {
+//             name: 'Gunther',
+//             age: 27
+//         }
+//     ], (error, result) => {
+//         if (error) {
+//             return console.log('Unable to insert documents!');
+//         }
+
+//         console.log(result.ops);
+//     })
+
+    
+
+// 
+    // Goal: Insert three tasks into a new tasks collection
+    // 
+    // 1. User insertMany to insert the documents
+    //  - description (string), completed (boolean)
+    // 2. Set up the callback to handle error or print ops
+    // 3. Run the script
+    // 4. Refresh the database in Robo 3t and view data in tasks collection
+
+    db.collection('tasks').insertMany([
+        {
+            description: 'Clean the house',
+            completed: true
+        },
+        
+        {
+            description: 'Renew inspection',
+            completed: false
+        },
+       
+        {
+            description: 'Pot plants',
+            completed: false
+        }
+    ], (error, result) => {
+
+        if (error) {
+            return console.log('Unable to insert tasks!');
+        }
+
+        console.log(result.ops);
     })
+
 })
