@@ -1,10 +1,14 @@
 // CRUD create read update delete
 
-const mongodb = require('mongodb');
-const MongoClient = mongodb.MongoClient;
+const { MongoClient, ObjectID } = require('mongodb');
 
 const connectioinURL = 'mongodb://127.0.0.1:27017';
-const databaseName = 'task-manager'
+const databaseName = 'task-manager';
+
+const id = new ObjectID();
+console.log(id.id.length);
+console.log(id.toHexString().length);
+
 
 MongoClient.connect(connectioinURL, { useNewUrlParser: true }, (error, client) => {
     if (error) {
@@ -14,8 +18,8 @@ MongoClient.connect(connectioinURL, { useNewUrlParser: true }, (error, client) =
     const db = client.db(databaseName);
 
     // db.collection('users').insertOne({
-    //     name: 'Andrew',
-    //     age: 27
+    //     name: 'Vikram',
+    //     age: 26
     // }, (error, result) => {
     //     if (error) {
     //         return console.log('Unable to insert user')
@@ -42,37 +46,28 @@ MongoClient.connect(connectioinURL, { useNewUrlParser: true }, (error, client) =
 
     
 
-// 
-    // Goal: Insert three tasks into a new tasks collection
-    // 
-    // 1. User insertMany to insert the documents
-    //  - description (string), completed (boolean)
-    // 2. Set up the callback to handle error or print ops
-    // 3. Run the script
-    // 4. Refresh the database in Robo 3t and view data in tasks collection
-
-    db.collection('tasks').insertMany([
-        {
-            description: 'Clean the house',
-            completed: true
-        },
+    // db.collection('tasks').insertMany([
+    //     {
+    //         description: 'Clean the house',
+    //         completed: true
+    //     },
         
-        {
-            description: 'Renew inspection',
-            completed: false
-        },
+    //     {
+    //         description: 'Renew inspection',
+    //         completed: false
+    //     },
        
-        {
-            description: 'Pot plants',
-            completed: false
-        }
-    ], (error, result) => {
+    //     {
+    //         description: 'Pot plants',
+    //         completed: false
+    //     }
+    // ], (error, result) => {
 
-        if (error) {
-            return console.log('Unable to insert tasks!');
-        }
+    //     if (error) {
+    //         return console.log('Unable to insert tasks!');
+    //     }
 
-        console.log(result.ops);
-    })
+    //     console.log(result.ops);
+    // })
 
 })
