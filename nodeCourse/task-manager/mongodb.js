@@ -14,34 +14,26 @@ MongoClient.connect(connectioinURL, { useNewUrlParser: true }, (error, client) =
 
     const db = client.db(databaseName);
 
-    // db.collection('users').updateOne({
-    //     _id: new ObjectID("5e82d2d9749efe2da801f3b6")
-    // }, {
-    //     $inc: {
-    //         age: 1
-    //     }
-    // }).then((result ) => {
-    //     console.log(result);
-    // }).catch((error) => {
-    //     console.log(error);
-    // })
+    db.collection('users').deleteMany({
+        age: 27
+    }).then((result) => {
+        console.log(result);
+    }).catch((error) => {
+        console.log(error);
+    })
 
-    // 
-    // Goal: Use updateMany to complete all tasks
-    // 
-    // 1. Check the documentation for updateMany
-    // 2. Setup the call with the query and the updatees
-    // 3. Use promise methods to set up the success/error handlers
+    
+    // Goal: Use deleteOne to remove a task
+    
+    // 1. Grab the description for the task you want to remove
+    // 2. Set up the call with the query
+    // 3. Use promise method to set up the success/error handlers
     // 4. Test your work.
 
-    db.collection('tasks').updateMany({
-        completed: false
-    }, {
-        $set: {
-            completed: true
-        }
+    db.collection('tasks').deleteOne({
+        description: "Clean the house"
     }).then((result) => {
-        console.log(result.modifiedCount);
+        console.log(result);
     }).catch((error) => {
         console.log(error);
     })
