@@ -18,6 +18,28 @@ app.post('/users', (req, res) => {
     })
 })
 
+app.get('/users', (req, res) => {
+    User.find({}).then((users) => {
+        res.send(users);
+    }).catch((e) => {
+        res.status(500).send();
+    })
+})
+
+app.get('/users/:id', (req, res) => {
+    const _id = req.params.id;
+    
+    User.findById(_id).then((user) => {
+        if (!user) {
+            return res.status(404).send();
+        }
+
+        res.send(user);
+    }).catch((e) => {
+        res.status(500).send();
+    })
+})
+
 app.post('/tasks', (req, res) => {
     const task = new Task(req.body);
 
@@ -27,13 +49,6 @@ app.post('/tasks', (req, res) => {
         res.status(400).send(e); 
     })
 })
-
-// 
-// Goal: Set up the task creation endpoint
-// 
-// 1. Create a separate file for the task model (load it into index.js)
-// 2. Create the task create endpoint (handle success and error)
-// 3. Test the endpoint from postman with good and bad data
 
 app.listen(port, () => {
     console.log('Server is up on port ' + port);
