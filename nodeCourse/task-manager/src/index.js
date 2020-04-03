@@ -50,6 +50,34 @@ app.post('/tasks', (req, res) => {
     })
 })
 
+app.get('/tasks', (req, res) => {
+    Task.find({}).then((tasks) => {
+        res.send(tasks);
+    }).catch((e) => {
+        res.status(500).send();
+    })
+})
+
+app.get('/tasks/:id', (req, res) => {
+    const _id = req.params.id;
+
+    Task.findById(_id).then((task) => {
+        if(!task) {
+            return res.status(404).send()
+        }
+        res.send(task);
+    }).catch((e) => {
+        res.status(500).send();
+    })
+})
+
+// 
+// Goal: Setup the task reading endpoints
+// 
+// 1. Create an endpoint for fetching all tasks
+// 2. Create an endpoint for fetching a task by its id
+// 3. Setup new requests in Postman and test your work
+
 app.listen(port, () => {
     console.log('Server is up on port ' + port);
 })
