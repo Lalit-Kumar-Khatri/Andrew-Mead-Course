@@ -22,13 +22,3 @@ deleteTaskAndCount('5e85c12f69bc9046f89b5785').then((count) => {
 }).catch((e) => {
     console.log(e);
 })
-
-// 
-// Goal: Use async/await
-// 
-// 1. Create deleteTaskAndCount as an async function
-// - accept id of task to remove
-// 2. Use await to delete task and count up incomplete tasks
-// 3. Return the count
-// 4. Call the function and attach then/catch to log results
-// 5. Test your work!
