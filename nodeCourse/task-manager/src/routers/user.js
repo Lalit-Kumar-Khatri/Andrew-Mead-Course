@@ -97,16 +97,15 @@ const upload = multer({
 
 router.post('/users/me/avatar', upload.single('avatar'), (req, res) => {
     res.send();
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message });
 })
 
 // 
-// Goal: Add validation to avatar upload route
+// Goal: Clean up error handling
 // 
-// 1. Limit the upload size to 1 MB
-// 2. Only allow jpg, jpeg and png
+// 1. Setup an error handler function
+// 2. Send back 400 with the error message
 // 3. Test your work
-// - Upload a larger file (should fail)
-// - Upload non-images (should fail)
-
 
 module.exports = router;
