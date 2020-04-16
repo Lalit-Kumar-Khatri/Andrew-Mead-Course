@@ -90,14 +90,5 @@ router.post('/users/me/avatar', upload.single('avatar'), (req, res) => {
     res.send();
 })
 
-// 
-// Goal: Setup endpoint for avatar upload
-// 
-// 1. Add POST /users/me/avatar to user router
-// 2. Setup multer to store upload in an avatars directory
-// 3. Choose name "avatar" for the key when registering the middleware
-// 4. Send back a 200 response from route handler
-// 5. Test your work, Create new Task app request and upload image
-
 
 module.exports = router;
