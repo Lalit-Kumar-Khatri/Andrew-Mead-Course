@@ -83,12 +83,30 @@ router.delete('/users/me', auth, async (req, res) => {
 })
 
 const upload = multer({
-    dest: 'avatar'
+    dest: 'avatar',
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+            return cb(new Error('Please upload an image'));
+        }
+        cb(undefined, true);
+    }
 })
 
 router.post('/users/me/avatar', upload.single('avatar'), (req, res) => {
     res.send();
 })
+
+// 
+// Goal: Add validation to avatar upload route
+// 
+// 1. Limit the upload size to 1 MB
+// 2. Only allow jpg, jpeg and png
+// 3. Test your work
+// - Upload a larger file (should fail)
+// - Upload non-images (should fail)
 
 
 module.exports = router;
