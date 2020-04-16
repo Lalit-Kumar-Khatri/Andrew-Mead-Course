@@ -17,23 +17,20 @@ router.post('/tasks', auth, async (req, res) => {
     }
 })
 
-// 
-// Goal: Setup support for skip
-// 
-// 1. Setup "skip" option
-// - Parse query value to integer
-// 2. Fire off some requests to test it's working
-// - Fetch the first page of 2 and then third page of 2
-// - Fetch the first page of 3 and then second page of 3
-
-
 // GET /tasks?completed=true
 // GET /tasks?limit=10&skip=20
+// GET /tasks?sortBy=createdAt:desc
 router.get('/tasks', auth, async (req, res) => {
-    const match = {}
+    const match = {};
+    const sort = {};
 
     if (req.query.completed) {
         match.completed = req.query.completed === 'true'
+    }
+
+    if (req.query.sortBy) {
+        const parts = req.query.sortBy.split(':');
+        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
     }
 
     try {
@@ -42,7 +39,8 @@ router.get('/tasks', auth, async (req, res) => {
             match,
             options: {
                 limit: parseInt(req.query.limit),
-                skip: parseInt(req.query.skip)
+                skip: parseInt(req.query.skip),
+                sort
             }
         }).execPopulate();
         res.send(req.user.tasks)    
